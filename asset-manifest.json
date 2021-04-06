@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/GolfPool/static/css/main.9d5b29c0.chunk.css",
-    "main.js": "/GolfPool/static/js/main.369c9457.chunk.js",
-    "main.js.map": "/GolfPool/static/js/main.369c9457.chunk.js.map",
-    "runtime-main.js": "/GolfPool/static/js/runtime-main.83402d38.js",
-    "runtime-main.js.map": "/GolfPool/static/js/runtime-main.83402d38.js.map",
-    "static/js/2.a43840dc.chunk.js": "/GolfPool/static/js/2.a43840dc.chunk.js",
-    "static/js/2.a43840dc.chunk.js.map": "/GolfPool/static/js/2.a43840dc.chunk.js.map",
-    "static/js/3.a78b7e71.chunk.js": "/GolfPool/static/js/3.a78b7e71.chunk.js",
-    "static/js/3.a78b7e71.chunk.js.map": "/GolfPool/static/js/3.a78b7e71.chunk.js.map",
+    "main.js": "/GolfPool/static/js/main.9e1e5527.chunk.js",
+    "main.js.map": "/GolfPool/static/js/main.9e1e5527.chunk.js.map",
+    "runtime-main.js": "/GolfPool/static/js/runtime-main.299e36d5.js",
+    "runtime-main.js.map": "/GolfPool/static/js/runtime-main.299e36d5.js.map",
+    "static/js/2.423c1605.chunk.js": "/GolfPool/static/js/2.423c1605.chunk.js",
+    "static/js/2.423c1605.chunk.js.map": "/GolfPool/static/js/2.423c1605.chunk.js.map",
+    "static/js/3.a122894a.chunk.js": "/GolfPool/static/js/3.a122894a.chunk.js",
+    "static/js/3.a122894a.chunk.js.map": "/GolfPool/static/js/3.a122894a.chunk.js.map",
     "index.html": "/GolfPool/index.html",
     "static/css/main.9d5b29c0.chunk.css.map": "/GolfPool/static/css/main.9d5b29c0.chunk.css.map",
-    "static/js/2.a43840dc.chunk.js.LICENSE.txt": "/GolfPool/static/js/2.a43840dc.chunk.js.LICENSE.txt"
+    "static/js/2.423c1605.chunk.js.LICENSE.txt": "/GolfPool/static/js/2.423c1605.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.83402d38.js",
-    "static/js/2.a43840dc.chunk.js",
+    "static/js/runtime-main.299e36d5.js",
+    "static/js/2.423c1605.chunk.js",
     "static/css/main.9d5b29c0.chunk.css",
-    "static/js/main.369c9457.chunk.js"
+    "static/js/main.9e1e5527.chunk.js"
   ]
 }
