@@ -1,63 +1,69 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
 import Paper from '@material-ui/core/Paper';
 import PoolTable from './components/poolTable.jsx'
+import cheerio from 'cheerio';
 
 const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-  paperPadding: {
-    margin: '16px'
-  }
+	table: {
+		minWidth: 650,
+	},
+	paperPadding: {
+		margin: '16px'
+	}
 });
 
 function App() {
-  const classes = useStyles();
-  const [scores, setScores] = useState({});
-  const api = window.location.href.includes("localhost") ? "https://cors-anywhere.herokuapp.com/http://samsandberg.com/themasters/" : "http://samsandberg.com/themasters/";
-  useEffect(()=>{
-    fetch(api)
-      .then(res => res.json())
-      .then((res)=>{
-        if(res){
-          const temp = {};
-          res.players.forEach((e)=>{
-            if(e.player){
-              temp[e.player.replace(" (a)","")] = {
-                "pos": e.pos,
-                "toPar": e.to_par
-              }
-            }
-          });
-          setScores(temp);
-        }
-      })
-  },[])
+	const classes = useStyles();
+	const [scores, setScores] = useState({});
+	const [allTeams, setAllTeams] = useState([]);
+	const espn = window.location.href.includes("localhost") ? "https://enigmatic-hollows-91895.herokuapp.com/https://www.espn.com/golf/leaderboard" : "https://enigmatic-hollows-91895.herokuapp.com/https://www.espn.com/golf/leaderboard";
+	const teams = window.location.href.includes("localhost") ? "https://enigmatic-hollows-91895.herokuapp.com/https://raw.githubusercontent.com/ydelloyd/Datasets/master/teams.json" : "https://enigmatic-hollows-91895.herokuapp.com/https://raw.githubusercontent.com/ydelloyd/Datasets/master/teams.json";
+	useEffect(() => {
+		fetch(espn)
+			.then((res) => {
+				return res.text();
+			})
+			.then((res) => {
+				if (res) {
+					const $ = cheerio.load(res)
+					const $trs = $('.competitors tbody tr')
+					console.log($trs)
+					const leaderboard = {};
+					$trs.toArray().forEach(tr => {
+						const tds = $(tr).find('td').toArray();
+						const playerPos = $(tds[0]).text();
+						const playerName = $(tds[1]).text();
+						const playerScore = $(tds[2]).text();
+						leaderboard[playerName.replace(" (a)", "")] = {
+							"pos": playerPos,
+							"toPar": playerScore === "E" ? "0" : playerScore
+						}
+					});
+					setScores(leaderboard);
+				} else {
+					console.log("There was an error");
+				}
+			});
+		fetch(teams)
+			.then((res) => {
+				return res.json();
+			}).then((res) => {
+				if(res){
+					setAllTeams(res);
+				} else {
+					console.log("There was an error");
+				}
+			});
+	}, [])
 
-  return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
-    <Paper className={classes.paperPadding} elevation={3}>
-      <PoolTable leaderboard={scores}/>
-    </Paper>
-    
-  );
+	return (
+		<Paper className={classes.paperPadding} elevation={3}>
+			<PoolTable leaderboard={scores} teams={allTeams}/>
+		</Paper>
+
+	);
 }
 
 export default App;
