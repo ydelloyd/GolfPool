@@ -18,8 +18,9 @@ function PoolTable(props) {
 	const classes = useStyles();
 	const [results, setResults] = useState([]);
 	const numOr0 = n => isNaN(n) ? 999 : n
-
+	console.log(props);
 	useEffect(() => {
+		console.log(props.leaderboard)
 		if (Object.keys(props.leaderboard).length > 0) {
 			let temp = props.teams.map((e) => {
 				let toPar = [props.leaderboard[e.player1] ? props.leaderboard[e.player1].toPar : '-',
