@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -55,7 +56,7 @@ function PoolTable(props) {
 			})
 			temp.forEach((e, i) => {
 				if (i === 0) {
-					if (temp[i + 1].total === e.total && Math.abs(temp[i + 1].total - temp[i + 1].tiebreaker) - Math.abs(e.total - e.tiebreaker)) {
+					if (temp[i + 1].total === e.total && Math.abs(temp[i + 1].total - temp[i + 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
 						temp[i] = { ...e, "pos": "T" + (i + 1) }
 					} else {
 						temp[i] = { ...e, "pos": i + 1 }
@@ -84,15 +85,51 @@ function PoolTable(props) {
 			<Table className={classes.table} aria-label="simple table">
 				<TableHead>
 					<TableRow>
-						<TableCell>Place</TableCell>
-						<TableCell>Team Name</TableCell>
-						<TableCell>Player 1</TableCell>
-						<TableCell>Player 2</TableCell>
-						<TableCell>Player 3</TableCell>
-						<TableCell>Player 4</TableCell>
-						<TableCell>Player 5</TableCell>
-						<TableCell>Tie Breaker</TableCell>
-						<TableCell>To Par</TableCell>
+						<TableCell>
+							<Typography variant="h6">
+								Place
+      						</Typography>
+						</TableCell>
+						<TableCell>
+							<Typography variant="h6">
+								Team Name
+      						</Typography>
+						</TableCell>
+						<TableCell>
+							<Typography variant="h6">
+								Player 1
+      						</Typography>
+						</TableCell>
+						<TableCell>
+							<Typography variant="h6">
+								Player 2
+      						</Typography>
+						</TableCell>
+						<TableCell>
+							<Typography variant="h6">
+								Player 3
+      						</Typography>
+						</TableCell>
+						<TableCell>
+							<Typography variant="h6">
+								Player 4
+      						</Typography>
+						</TableCell>
+						<TableCell>
+							<Typography variant="h6">
+								Player 5
+      						</Typography>
+						</TableCell>
+						<TableCell>
+							<Typography variant="h6">
+								Tie Breaker
+      						</Typography>
+						</TableCell>
+						<TableCell>
+							<Typography variant="h6">
+								To Par
+      						</Typography>
+						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
