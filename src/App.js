@@ -53,6 +53,7 @@ function App() {
 							"toPar": playerScore === "E" ? "0" : playerScore
 						}
 					});
+					console.log(leaderboard);
 					setScores(leaderboard);
 				} else {
 					console.log("There was an error");
