@@ -1,6 +1,5 @@
 {
   "name": "masters",
-  "homepage": "http://ydelloyd.github.io/GolfPool",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
