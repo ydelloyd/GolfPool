@@ -40,7 +40,7 @@ function PoolTable(props) {
 				return {
 					...e,
 					"total": [toPar[0], toPar[1], toPar[2]].reduce((a, b) => numOr0(parseInt(a)) + numOr0(parseInt(b))),
-					"madeCut": toPar.filter((e)=>e!=="-").length
+					"madeCut": toPar.filter((e)=>!isNaN(e)).length
 				}
 			});
 			temp.sort((a, b) => {
