@@ -78,6 +78,7 @@ function PoolTable(props) {
 					}
 				}
 			})
+			console.log(temp);
 			setResults(temp)
 		}
 	}, [props.leaderboard])

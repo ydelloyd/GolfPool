@@ -28,33 +28,20 @@ function App() {
 	const [allTeams, setAllTeams] = useState([]);
 	const [espnLoading, setEspnLoading] = useState(false);
 	const [teamsLoading, setTeamsLoading] = useState(false);
-	const espn = window.location.href.includes("localhost") ? "https://enigmatic-hollows-91895.herokuapp.com/https://www.espn.com/golf/leaderboard" : "https://enigmatic-hollows-91895.herokuapp.com/https://www.espn.com/golf/leaderboard";
-	const teams = window.location.href.includes("localhost") ? "https://enigmatic-hollows-91895.herokuapp.com/https://raw.githubusercontent.com/ydelloyd/Datasets/master/teams.json" : "https://enigmatic-hollows-91895.herokuapp.com/https://raw.githubusercontent.com/ydelloyd/Datasets/master/teams.json";
+	const espn = window.location.href.includes("localhost") ? "https://protected-citadel-17952.herokuapp.com/leaderboard" : "https://protected-citadel-17952.herokuapp.com/leaderboard";
+	const teams = window.location.href.includes("localhost") ? "https://protected-citadel-17952.herokuapp.com/teams" : "https://protected-citadel-17952.herokuapp.com/teams";
 	useEffect(() => {
 		setEspnLoading(true);
 		setTeamsLoading(true);
 		fetch(espn)
 			.then((res) => {
-				return res.text();
+				return res.json();
 			})
 			.then((res) => {
+				console.log(res);
 				setEspnLoading(false);
 				if (res) {
-					const $ = cheerio.load(res)
-					const $trs = $('.competitors tbody tr')
-					const leaderboard = {};
-					$trs.toArray().forEach(tr => {
-						const tds = $(tr).find('td').toArray();
-						const playerPos = $(tds[0]).text();
-						const playerName = $(tds[1]).text();
-						const playerScore = $(tds[2]).text();
-						leaderboard[playerName.replace(" (a)", "")] = {
-							"pos": playerPos,
-							"toPar": playerScore === "E" ? "0" : playerScore
-						}
-					});
-					console.log(leaderboard);
-					setScores(leaderboard);
+					setScores(res);
 				} else {
 					console.log("There was an error");
 				}
@@ -63,6 +50,7 @@ function App() {
 			.then((res) => {
 				return res.json();
 			}).then((res) => {
+				console.log(res)
 				setTeamsLoading(false)
 				if(res){
 					setAllTeams(res);
