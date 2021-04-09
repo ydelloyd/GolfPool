@@ -39,7 +39,8 @@ function PoolTable(props) {
 				});
 				return {
 					...e,
-					"total": [toPar[0], toPar[1], toPar[2]].reduce((a, b) => numOr0(parseInt(a)) + numOr0(parseInt(b)))
+					"total": [toPar[0], toPar[1], toPar[2]].reduce((a, b) => numOr0(parseInt(a)) + numOr0(parseInt(b))),
+					"madeCut": toPar.filter((e)=>e!=="-").length
 				}
 			});
 			temp.sort((a, b) => {
@@ -49,7 +50,12 @@ function PoolTable(props) {
 					return -1;
 				} else {
 					if (parseInt(a.total) === parseInt(b.total)) {
-						return Math.abs(a.total - a.tiebreaker) - Math.abs(b.total - b.tiebreaker)
+						if(a.madeCut !== b.madeCut){
+							return b.madeCut - a.madeCut;
+						} else {
+							return Math.abs(a.total - a.tiebreaker) - Math.abs(b.total - b.tiebreaker);
+						}
+						
 					} else {
 						return parseInt(a.total) - parseInt(b.total)
 					}
@@ -57,21 +63,21 @@ function PoolTable(props) {
 			})
 			temp.forEach((e, i) => {
 				if (i === 0) {
-					if (temp[i + 1].total === e.total && Math.abs(temp[i + 1].total - temp[i + 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
+					if (temp[i + 1].total === e.total && temp[i + 1].madeCut === e.madeCut && Math.abs(temp[i + 1].total - temp[i + 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
 						temp[i] = { ...e, "pos": "T" + (i + 1) }
 					} else {
 						temp[i] = { ...e, "pos": i + 1 }
 					}
 				} else if (i !== temp.length - 1) {
-					if (temp[i + 1].total === e.total && Math.abs(temp[i + 1].total - temp[i + 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
+					if (temp[i + 1].total === e.total && temp[i + 1].madeCut === e.madeCut && Math.abs(temp[i + 1].total - temp[i + 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
 						temp[i] = { ...e, "pos": "T" + (i + 1) }
-					} else if (temp[i - 1].total === e.total && Math.abs(temp[i - 1].total - temp[i - 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
+					} else if (temp[i - 1].total === e.total && temp[i - 1].madeCut === e.madeCut && Math.abs(temp[i - 1].total - temp[i - 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
 						temp[i] = { ...e, "pos": temp[i - 1].pos }
 					} else {
 						temp[i] = { ...e, "pos": i + 1 }
 					}
 				} else {
-					if (temp[i - 1].total === e.total && Math.abs(temp[i - 1].total - temp[i - 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
+					if (temp[i - 1].total === e.total && temp[i - 1].madeCut === e.madeCut && Math.abs(temp[i - 1].total - temp[i - 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
 						temp[i] = { ...e, "pos": temp[i - 1].pos }
 					} else {
 						temp[i] = { ...e, "pos": i + 1 }
@@ -124,6 +130,11 @@ function PoolTable(props) {
 						</TableCell>
 						<TableCell>
 							<Typography variant="h6">
+								Made Cut
+      						</Typography>
+						</TableCell>
+						<TableCell>
+							<Typography variant="h6">
 								Tie Breaker
       						</Typography>
 						</TableCell>
@@ -144,6 +155,7 @@ function PoolTable(props) {
 							<TableCell>{row.player3 + ` (${props.leaderboard[row.player3] ? props.leaderboard[row.player3].toPar : '-'})`}</TableCell>
 							<TableCell>{row.player4 + ` (${props.leaderboard[row.player4] ? props.leaderboard[row.player4].toPar : '-'})`}</TableCell>
 							<TableCell>{row.player5 + ` (${props.leaderboard[row.player5] ? props.leaderboard[row.player5].toPar : '-'})`}</TableCell>
+							<TableCell>{row.madeCut}</TableCell>
 							<TableCell>{row.tiebreaker}</TableCell>
 							<TableCell>{row.total > 100 ? "-" : row.total}</TableCell>
 						</TableRow>
