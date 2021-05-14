@@ -7,11 +7,21 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
 	table: {
 		minWidth: 650,
 	},
+	// paperPadding: {
+	// 	margin: '6.9vh'
+	// },
+	// root: {
+	// 	width: '100%',
+	// 	'& > * + *': {
+	// 	  marginTop: theme.spacing(2),
+	// 	},
+	//   },
 });
 
 function PoolTable(props) {
@@ -19,6 +29,7 @@ function PoolTable(props) {
 	const [results, setResults] = useState([]);
 	const numOr0 = n => isNaN(n) ? 999 : n
 	console.log(props);
+
 	useEffect(() => {
 		console.log(props.leaderboard)
 		if (Object.keys(props.leaderboard).length > 0) {
@@ -63,10 +74,14 @@ function PoolTable(props) {
 			})
 			temp.forEach((e, i) => {
 				if (i === 0) {
-					if (temp[i + 1].total === e.total && temp[i + 1].madeCut === e.madeCut && Math.abs(temp[i + 1].total - temp[i + 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
-						temp[i] = { ...e, "pos": "T" + (i + 1) }
+					if(temp.length > 1){
+						if (temp[i + 1].total === e.total && temp[i + 1].madeCut === e.madeCut && Math.abs(temp[i + 1].total - temp[i + 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
+							temp[i] = { ...e, "pos": "T" + (i + 1) }
+						} else {
+							temp[i] = { ...e, "pos": i + 1 }
+						}
 					} else {
-						temp[i] = { ...e, "pos": i + 1 }
+						temp[i] = { ...e, "pos": 1 }
 					}
 				} else if (i !== temp.length - 1) {
 					if (temp[i + 1].total === e.total && temp[i + 1].madeCut === e.madeCut && Math.abs(temp[i + 1].total - temp[i + 1].tiebreaker) === Math.abs(e.total - e.tiebreaker)) {
@@ -88,8 +103,10 @@ function PoolTable(props) {
 			setResults(temp)
 		}
 	}, [props.leaderboard])
+
+
 	return (
-		<TableContainer>
+		<TableContainer component={Paper}>
 			<Table className={classes.table} aria-label="simple table">
 				<TableHead>
 					<TableRow>
@@ -149,7 +166,7 @@ function PoolTable(props) {
 					{results.map((row) => (
 						<TableRow key={row.team}>
 							<TableCell>{row.pos}</TableCell>
-							<TableCell>{row.team}</TableCell>
+							<TableCell>{row.name}</TableCell>
 							<TableCell>{row.player1 + ` (${props.leaderboard[row.player1] ? props.leaderboard[row.player1].toPar : '-'})`}</TableCell>
 							<TableCell>{row.player2 + ` (${props.leaderboard[row.player2] ? props.leaderboard[row.player2].toPar : '-'})`}</TableCell>
 							<TableCell>{row.player3 + ` (${props.leaderboard[row.player3] ? props.leaderboard[row.player3].toPar : '-'})`}</TableCell>
