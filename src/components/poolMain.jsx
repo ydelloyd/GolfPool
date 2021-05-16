@@ -69,14 +69,11 @@ function PoolMain(props) {
     };
 
 	const selectEvent = ()=> {
-		console.log(currentEvent)
 		if(currentEvent){
-			console.log("Inside")
 			setButtonPressed(true);
 			setEspnLoading(true);
 			setTeamsLoading(true);
 			getLeaderboard().then((res) => {
-					console.log(res);
 					setEspnLoading(false);
 					if (res) {
 						setScores(res.data);
@@ -85,7 +82,6 @@ function PoolMain(props) {
 					}
 				});
 			getTeams(currentEvent).then((res) => {
-					console.log(res.data)
 					setTeamsLoading(false)
 					if (res) {
 						setAllTeams(res.data);

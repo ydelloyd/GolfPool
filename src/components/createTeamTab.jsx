@@ -115,7 +115,7 @@ function CreateTeamTab(props) {
     }
 
     const selectEvent = () => {
-        if (currentEvent && currentEvent > -1) {
+        if (currentEvent) {
             const val = props.events.find((e) => {
                 return e.id === currentEvent
             });
@@ -124,7 +124,6 @@ function CreateTeamTab(props) {
     }
 
     const handleText = (input) => {
-        console.log(input);
         setTeam({ ...team, [input.target.id]: input.target.value })
     }
 
@@ -173,11 +172,7 @@ function CreateTeamTab(props) {
 
     const submitTeam = () => {
         const ret = team;
-        console.log(getAError());
-        console.log(getBError());
-        console.log(getCError());
         if (!getAError() && !getBError() && !getCError() && ret.name.length > 0 && ret.owner.length > 0 && ret.contactEmail.length > 0) {
-            console.log(!getAError() && !getBError() && !getCError());
             const a = [];
             Object.keys(groupA).forEach((e) => {
                 if (groupA[e]) {
@@ -195,7 +190,6 @@ function CreateTeamTab(props) {
                 handleOpen();
             }).catch((e) => {
                 setMessage({ "severity": "error", "message": "There was an error creating the team. Please try again." })
-                console.log(e)
             })
         } else {
             setMessage({ "severity": "error", "message": "Please validate inputs" })

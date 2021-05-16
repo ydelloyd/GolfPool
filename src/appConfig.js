@@ -1,1 +1,1 @@
-export const baseUrl = window.location.href.includes("localhost") ? "http://localhost:3000/" : "https://api.yorkdelloyd.com/";
+export const baseUrl = window.location.href.includes("localhost") ? "https://api.yorkdelloyd.com/" : "https://api.yorkdelloyd.com/";

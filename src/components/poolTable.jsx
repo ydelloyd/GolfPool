@@ -28,32 +28,33 @@ function PoolTable(props) {
 	const classes = useStyles();
 	const [results, setResults] = useState([]);
 	const numOr0 = n => isNaN(n) ? 999 : n
-	console.log(props);
 
 	useEffect(() => {
-		console.log(props.leaderboard)
 		if (Object.keys(props.leaderboard).length > 0) {
-			let temp = props.teams.map((e) => {
-				let toPar = [props.leaderboard[e.player1] ? props.leaderboard[e.player1].toPar : '-',
-				props.leaderboard[e.player2] ? props.leaderboard[e.player2].toPar : '-',
-				props.leaderboard[e.player3] ? props.leaderboard[e.player3].toPar : '-',
-				props.leaderboard[e.player4] ? props.leaderboard[e.player4].toPar : '-',
-				props.leaderboard[e.player5] ? props.leaderboard[e.player5].toPar : '-'];
-				toPar = toPar.sort((a, b) => {
-					if (isNaN(parseInt(a))) {
-						return 1;
-					} else if (isNaN(parseInt(b))) {
-						return -1;
-					} else {
-						return parseInt(a) - parseInt(b)
+			let temp = [];
+			if(props.teams){
+				temp = props.teams.map((e) => {
+					let toPar = [props.leaderboard[e.player1] ? props.leaderboard[e.player1].toPar : '-',
+					props.leaderboard[e.player2] ? props.leaderboard[e.player2].toPar : '-',
+					props.leaderboard[e.player3] ? props.leaderboard[e.player3].toPar : '-',
+					props.leaderboard[e.player4] ? props.leaderboard[e.player4].toPar : '-',
+					props.leaderboard[e.player5] ? props.leaderboard[e.player5].toPar : '-'];
+					toPar = toPar.sort((a, b) => {
+						if (isNaN(parseInt(a))) {
+							return 1;
+						} else if (isNaN(parseInt(b))) {
+							return -1;
+						} else {
+							return parseInt(a) - parseInt(b)
+						}
+					});
+					return {
+						...e,
+						"total": [toPar[0], toPar[1], toPar[2]].reduce((a, b) => numOr0(parseInt(a)) + numOr0(parseInt(b))),
+						"madeCut": toPar.filter((e)=>!isNaN(e)).length
 					}
 				});
-				return {
-					...e,
-					"total": [toPar[0], toPar[1], toPar[2]].reduce((a, b) => numOr0(parseInt(a)) + numOr0(parseInt(b))),
-					"madeCut": toPar.filter((e)=>!isNaN(e)).length
-				}
-			});
+			}
 			temp.sort((a, b) => {
 				if (isNaN(parseInt(a.total))) {
 					return 1;
@@ -99,7 +100,6 @@ function PoolTable(props) {
 					}
 				}
 			})
-			console.log(temp);
 			setResults(temp)
 		}
 	}, [props.leaderboard])

@@ -64,7 +64,6 @@ function Alert(props) {
 
 function CreateEvent(props) {
     const temp = new Date();
-    console.log(temp.toISOString())
     const classes = useStyles();
     const [event, setEvent] = useState({ "name": "", "eventStart": temp})
     const [open, setOpen] = useState(false);
@@ -131,7 +130,6 @@ function CreateEvent(props) {
                 </Grid>
                 <Grid item xs={12}>
                     <Button variant="contained" multiline rowsMax={8} color="primary" onClick={() => {
-                        console.log(event);
                         saveEvent(event).then((res) => {
                             handleOpen();
                         }).catch((e) => {

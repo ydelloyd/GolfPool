@@ -12,7 +12,6 @@ export function saveEvent(event){
         eventStart: event.eventStart.toISOString(),
         id: uuidv4()
     }
-    console.log(temp);
     return axios.post(baseUrl+"event", temp)
 }
 
