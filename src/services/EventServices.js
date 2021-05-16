@@ -1,4 +1,5 @@
 import {baseUrl} from "../appConfig";
+import { v4 as uuidv4 } from 'uuid';
 const axios = require('axios').default;
 
 
@@ -8,7 +9,8 @@ export function saveEvent(event){
         groupA: event.groupA.split(/\n+/).join(","),
         groupB: event.groupB.split(/\n+/).join(","),
         groupC: event.groupC.split(/\n+/).join(","),
-        eventStart: event.eventStart.toISOString()
+        eventStart: event.eventStart.toISOString(),
+        id: uuidv4()
     }
     console.log(temp);
     return axios.post(baseUrl+"event", temp)
